@@ -1,0 +1,8 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Library/Developer/CommandLineTools/usr/bin/make -DCMAKE_C_COMPILER=/Library/Developer/CommandLineTools/usr/bin/gcc -DCMAKE_CXX_COMPILER=/Library/Developer/CommandLineTools/usr/bin/g++ -G "CodeBlocks - Unix Makefiles" -S /Users/philippewestenfelder/Documents/Entwicklung/HTWG/Sysprog/c -B /Users/philippewestenfelder/Documents/Entwicklung/HTWG/Sysprog/c/cmake-build-debug
+CMake Error at CMakeLists.txt:6 (add_executable):
+  The target name "a1/aufgabe1" is reserved or not valid for certain CMake
+  features, such as generator expressions, and may result in undefined
+  behavior.
+
+
+-- Configuring incomplete, errors occurred!
