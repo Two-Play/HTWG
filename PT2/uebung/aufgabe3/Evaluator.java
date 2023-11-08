@@ -10,6 +10,7 @@
  */
 package aufgabe3;
 
+import java.util.Map;
 import java.util.Scanner;
 import static aufgabe3.Tokenizer.*;
 
@@ -23,6 +24,20 @@ public class Evaluator {
     private static int top = -1;					// Index des obersten Kellerelements
     private static Object token;					// Aktuelles Token
     private static Tokenizer tokenizer;				// Zerlegt String-Eingabe in Tokens
+
+    private static final Map<String, Integer> order = Map.of(
+            POWER, 3,
+            MULT, 2,
+            PLUS, 1
+
+    );
+
+    private static int vergleichOrder(Object op1, Object op2) {
+        if (op1 == POWER && op2 == POWER) {
+            return -1;
+        }
+        return order.get(op1) - order.get(op2);
+    }
 
     /**
      * Wertet expr als arithmetischen Ausdruck aus.
@@ -41,7 +56,7 @@ public class Evaluator {
 
         while (token != null) {
             // Ihr Code:
-            // ...
+
         }
         return null;
     }
@@ -50,8 +65,28 @@ public class Evaluator {
         if (stack[top] == DOLLAR && (token == KL_AUF || isVal(token))) {		// Regel 1 der Parser-Tabelle
             doShift();
             return true;
-        } // Ihr Code:
-        // ... 
+
+
+            // Ihr Code:
+        } else if (isOp(stack[top]) && (token == KL_AUF) || isVal(token)){  // Regel 2 der Parser-Tabelle
+            doShift();
+            return true;
+        } else if (stack[top] == KL_AUF && (token == KL_AUF) || isVal(token)) { // Regel 3 der Parser-Tabelle
+            doShift();
+            return true;
+        } else if (stack[top-1] == DOLLAR && isVal(stack[top]) && isOp(token)) { // Regel 6 der Parser-Tabelle
+            doShift();
+            return true;
+        } else if (stack[top-1] == KL_AUF && isVal(stack[top]) && (token == KL_ZU || isOp(token))) { // Regel 7 der Parser-Tabelle
+            doShift();
+            return true;
+        } else if ((isVal(stack[top-2]) && isVal(stack[top-1]) && isVal(stack[top])) && (vergleichOrder(stack[top - 1], token) < 0)) { // Regel 9 der Parser-Tabelle
+            doShift();
+            return true;
+        }
+
+
+
         else {
             return false;
         }
@@ -59,7 +94,7 @@ public class Evaluator {
 
     private static void doShift() {
         // Ihr Code:
-        // ... 
+        stack[++top] = token;
     }
 
     private static boolean isOp(Object o) {
@@ -72,7 +107,28 @@ public class Evaluator {
 
     private static boolean reduce() {
         // Ihr Code:
-        // ...
+        if (stack[top-2] == KL_AUF
+                && isVal(stack[top-1])
+                && stack[top] == KL_ZU
+                && (token == KL_ZU || isOp(token) || token == DOLLAR)) { // Regel 4 der Parser-Tabelle
+            doReduceKlValKl();
+            return true;
+        } else if (isVal(stack[top])
+                && isOp(stack[top - 1])
+                && isVal(stack[top - 2])
+                && (token == KL_ZU || token == DOLLAR)) { // Regel 8 der Parser-Tabelle
+            doReduceValOpVal();
+            return true;
+        } else if (isVal(stack[top])
+                && isOp(stack[top - 1])
+                && isVal(stack[top - 2])
+                && isOp(token)
+                && vergleichOrder(stack[top - 1], token) >= 0) {
+            // Regel 9 der Parser-Tabelle
+            doReduceValOpVal();
+            return true;
+            
+        }
         return false;
     }
 
@@ -88,7 +144,7 @@ public class Evaluator {
 
     private static boolean accept() {
         // Ihr Code:
-        // ...
+
         return false;
     }
 
@@ -102,8 +158,7 @@ public class Evaluator {
 
         while (in.hasNextLine()) {
             String line = in.nextLine();
-            // Ihr Code:
-            // ...
+            System.out.println(line);
             System.out.print(ANSI_BLUE + ">> ");
         }
     }
