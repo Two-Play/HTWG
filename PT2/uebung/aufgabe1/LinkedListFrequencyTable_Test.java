@@ -67,7 +67,7 @@ public class LinkedListFrequencyTable_Test {
         LineNumberReader in;
         in = new LineNumberReader(
                 new FileReader(
-                        "./aufgabe1/Kafka_Der_Prozess.txt",
+                        "aufgabe1/Kafka_Der_Prozess.txt",
                         StandardCharsets.UTF_8
                 )
         );

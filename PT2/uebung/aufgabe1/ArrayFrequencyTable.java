@@ -1,8 +1,5 @@
 package aufgabe1;
 
-import aufgabe1.AbstractFrequencyTable;
-import aufgabe1.Word;
-
 import java.util.Arrays;
 
 /**

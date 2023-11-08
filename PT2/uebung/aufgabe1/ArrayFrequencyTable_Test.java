@@ -1,7 +1,5 @@
 package aufgabe1;
 
-import aufgabe1.ArrayFrequencyTable;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
