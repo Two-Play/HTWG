@@ -1,8 +1,5 @@
 package aufgabe4;
 
-import aufgabe4.ArrayFrequencyTable;
-import aufgabe4.FrequencyTable;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -23,7 +20,7 @@ public class ArrayFrequencyTable_Test {
 	
 	private static void test1() {
 		// Test von add:
-		FrequencyTable tab1 = new ArrayFrequencyTable();
+		FrequencyTable<String> tab1 = new ArrayFrequencyTable<>();
 		tab1.add("das");
 		tab1.add("ist");
 		tab1.add("ein",2);
@@ -52,7 +49,7 @@ public class ArrayFrequencyTable_Test {
 		System.out.println("Ist:  " + tab1 +  "\n");
 		
 		// Test von addAll:
-		FrequencyTable tab2 = new ArrayFrequencyTable();
+		FrequencyTable<String> tab2 = new ArrayFrequencyTable<>();
 		tab2.add("das",2);
 		tab2.add("ist",4);
 		tab2.add("kurzer");
@@ -69,7 +66,7 @@ public class ArrayFrequencyTable_Test {
 	}
 	
 	private static void test2() throws FileNotFoundException, IOException {
-		FrequencyTable tab = new ArrayFrequencyTable();
+		FrequencyTable<String> tab = new ArrayFrequencyTable<>();
 		
 		long start = System.nanoTime(); // aktuelle Zeit in nsec
 		LineNumberReader in;
@@ -80,7 +77,7 @@ public class ArrayFrequencyTable_Test {
 		while ((line = in.readLine()) != null) {
 			String[] wf = line.split("[^a-z^A-Z^ß^ä^ö^ü^Ä^Ö^Ü]+");
 			for (String w: wf) {
-				if (w.length() == 0 || w.length() == 1)
+				if (w.isEmpty() || w.length() == 1)
 					continue;
 				//System.out.println(w);
 				// Ihr Code:
@@ -94,7 +91,7 @@ public class ArrayFrequencyTable_Test {
 		// Ausgabe der 100 häufigsten Wörter:
 		System.out.println("100 häufigste Wörter:");
 		// Ihr Code
-		FrequencyTable tab2 = new ArrayFrequencyTable();
+		FrequencyTable<String> tab2 = new ArrayFrequencyTable<>();
 		tab.collectNMostFrequent(100, tab2);
 
 		System.out.println(tab2);
