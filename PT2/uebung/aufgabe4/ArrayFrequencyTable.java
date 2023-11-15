@@ -1,7 +1,7 @@
 package aufgabe4;
 
-import aufgabe1.AbstractFrequencyTable;
-import aufgabe1.Word;
+import aufgabe4.AbstractFrequencyTable;
+import aufgabe4.Word;
 
 import java.util.Arrays;
 

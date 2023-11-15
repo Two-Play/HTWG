@@ -1,7 +1,7 @@
 package aufgabe4;
 
-import aufgabe1.FrequencyTable;
-import aufgabe1.LinkedListFrequencyTable2;
+import aufgabe4.FrequencyTable;
+import aufgabe4.LinkedListFrequencyTable;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -17,7 +17,7 @@ public class LinkedListFrequencyTable_Test {
 
     private static void test1() {
         // Test von add:
-        FrequencyTable tab1 = new LinkedListFrequencyTable2();
+        FrequencyTable tab1 = new LinkedListFrequencyTable();
         tab1.add("das");
         tab1.add("ist");
         tab1.add("ein",2);
@@ -47,7 +47,7 @@ public class LinkedListFrequencyTable_Test {
         System.out.println("Ist:  " + tab1 +  "\n");
 
         // Test von addAll:
-        FrequencyTable tab2 = new LinkedListFrequencyTable2();
+        FrequencyTable tab2 = new LinkedListFrequencyTable();
         tab2.add("das",2);
         tab2.add("ist",4);
         tab2.add("kurzer");
@@ -64,7 +64,7 @@ public class LinkedListFrequencyTable_Test {
     }
 
     private static void test2() throws FileNotFoundException, IOException {
-        FrequencyTable tab = new LinkedListFrequencyTable2();
+        FrequencyTable tab = new LinkedListFrequencyTable();
 
         long start = System.nanoTime(); // aktuelle Zeit in nsec
         LineNumberReader in;
@@ -97,7 +97,7 @@ public class LinkedListFrequencyTable_Test {
         // Ausgabe der 100 häufigsten Wörter:
         System.out.println("100 häufigste Wörter:");
         // Ihr Code
-        FrequencyTable tab2 = new LinkedListFrequencyTable2();
+        FrequencyTable tab2 = new LinkedListFrequencyTable();
         tab.collectNMostFrequent(100, tab2);
         System.out.println(tab2);
         System.out.println("");

@@ -1,6 +1,6 @@
 package aufgabe4;
 
-import aufgabe1.Word;
+import aufgabe4.Word;
 
 /**
  *

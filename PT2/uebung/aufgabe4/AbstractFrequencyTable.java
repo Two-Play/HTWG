@@ -1,6 +1,6 @@
 package aufgabe4;
 
-import aufgabe1.FrequencyTable;
+import aufgabe4.FrequencyTable;
 
 /**
  *
