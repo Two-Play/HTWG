@@ -6,14 +6,14 @@ import aufgabe4.FrequencyTable;
  *
  * @author oliverbittel
  */
-public abstract class AbstractFrequencyTable implements FrequencyTable {
+public abstract class AbstractFrequencyTable<T> implements FrequencyTable<T> {
 	@Override
 	public boolean isEmpty() {
 		return this.size() == 0;
 	}
 	
 	@Override
-    public void add(String w) {
+    public void add(T w) {
 		add(w, 1);
     }
 
@@ -21,7 +21,7 @@ public abstract class AbstractFrequencyTable implements FrequencyTable {
 	public void addAll(FrequencyTable fq) {
 		// Ihr Code:
 		for (int i = 0; i < fq.size(); i++) {
-			add(fq.get(i).getWord(), fq.get(i).getFrequency());
+			add((T) fq.get(i).getElement(), fq.get(i).getFrequency());
 		}
 	}
 
@@ -36,7 +36,7 @@ public abstract class AbstractFrequencyTable implements FrequencyTable {
 		}
 
 		for (int i = 0; i < n; i++) {
-			fq.add(get(i).getWord(), get(i).getFrequency());
+			fq.add(get(i).getElement(), get(i).getFrequency());
 		}
 	}
 
@@ -45,7 +45,7 @@ public abstract class AbstractFrequencyTable implements FrequencyTable {
 		StringBuilder s = new StringBuilder("{");
 		// Ihr Code:
 		for (int i = 0; i < size(); i++) {
-			s.append(get(i).getWord()).append(":").append(get(i)
+			s.append(get(i).getElement()).append(":").append(get(i)
 					.getFrequency()).append(", ");
 		}
 		s.append("} size = ").append(size());

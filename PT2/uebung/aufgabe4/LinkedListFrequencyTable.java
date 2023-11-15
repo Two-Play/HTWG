@@ -1,16 +1,13 @@
 package aufgabe4;
 
-import aufgabe4.AbstractFrequencyTable;
-import aufgabe4.Word;
-
-public class LinkedListFrequencyTable extends AbstractFrequencyTable {
+public class LinkedListFrequencyTable<T> extends AbstractFrequencyTable<T> {
 
     //Node Klasse
     private final static class Node {
         private Node next;
         private Node prev;
-        private Word data;
-        public Node(Word x, Node n, Node p) {
+        private Element data;
+        public Node(Element x, Node n, Node p) {
             data = x;
             next = n;
             prev = p;
@@ -54,8 +51,8 @@ public class LinkedListFrequencyTable extends AbstractFrequencyTable {
      * @param f H&auml;ufigkeit.
      */
     @Override
-    public void add(String w, int f) {
-        if (w == null || w.isEmpty() || f < 1) {
+    public void add(T w, int f) {
+        if (w == null || f < 1) {
             throw new IllegalArgumentException("Illegal Argument, expected: w != null && w.length() > 0 && f > 0");
         }
 
@@ -63,7 +60,7 @@ public class LinkedListFrequencyTable extends AbstractFrequencyTable {
         //finde das Wort und erhöhe die freq.
         while (node.next != end && !isEmpty()) {
             node = node.next;
-            if (node.data.getWord().equals(w)) {
+            if (node.data.getElement().equals(w)) {
                 node.data.addFrequency(f);
                 moveToLeft(node);
                 return;
@@ -72,7 +69,7 @@ public class LinkedListFrequencyTable extends AbstractFrequencyTable {
             //node = node.next;
         }
 
-        Node newNode = new Node(new Word(w, f), end, end.prev);
+        Node newNode = new Node(new Element(w, f), end, end.prev);
 
         end.prev.next = newNode;
         end.prev = newNode;
@@ -93,7 +90,7 @@ public class LinkedListFrequencyTable extends AbstractFrequencyTable {
      * falls die Tabelle weniger als pos-1 Elemente  enth&auml;lt.
      */
     @Override
-    public Word get(int pos) {
+    public Element get(int pos) {
         //prüft parameter
         if (pos < 0 || pos >= size) {
             throw new IllegalArgumentException("Out of range");
@@ -117,8 +114,8 @@ public class LinkedListFrequencyTable extends AbstractFrequencyTable {
      * @return H&auml;ufigkeit.
      */
     @Override
-    public int get(String w) {
-        if (w == null || w.isEmpty()) {
+    public int get(T w) {
+        if (w == null) {
             throw new IllegalArgumentException("Illegal Argument, expected: w != null && w.length() > 0");
         }
 
@@ -126,7 +123,7 @@ public class LinkedListFrequencyTable extends AbstractFrequencyTable {
 
         while (node.next != end) {
             node = node.next;
-            if (node.data.getWord().equals(w)) {
+            if (node.data.getElement().equals(w)) {
                 return node.data.getFrequency();
             }
         }
@@ -135,7 +132,7 @@ public class LinkedListFrequencyTable extends AbstractFrequencyTable {
 
 
     private void moveToLeft(Node node) {
-        Word t = node.data;
+        Element t = node.data;
 
         while (node.prev != begin && t.getFrequency() > node.prev.data.getFrequency()) {
 

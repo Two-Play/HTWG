@@ -5,8 +5,8 @@ package aufgabe4;
  * @author oliverbittel
  * @since 31.07.2023
  */
-public class Word {
-	final private String word;
+public class Element<T> {
+	final private T element;
 	private int freqency;
 	
 	/**
@@ -14,8 +14,8 @@ public class Word {
 	 * @param word Wort
 	 * @param f H&auml;ufgkeit
 	 */
-	public Word(String word, int f) {
-		this.word = word;
+	public Element(T element, int f) {
+		this.element = element;
 		this.freqency = f;
 	}
 
@@ -23,8 +23,8 @@ public class Word {
 	 * Liefert Wort zur&uuml;ck.
 	 * @return Wort
 	 */
-	public String getWord() {
-		return word;
+	public T getElement() {
+		return element;
 	}
 
 	/**
@@ -45,6 +45,6 @@ public class Word {
 
 	@Override
 	public String toString() {
-		return word + ":" + freqency;
+		return element + ":" + freqency;
 	}
 }

@@ -73,7 +73,7 @@ public class ArrayFrequencyTable_Test {
 		
 		long start = System.nanoTime(); // aktuelle Zeit in nsec
 		LineNumberReader in;
-		in = new LineNumberReader(new FileReader("/Users/philippewestenfelder/Documents/Entwicklung/HTWG/PT2/A1/Kafka_Der_Prozess.txt", StandardCharsets.UTF_8));
+		in = new LineNumberReader(new FileReader("/Users/philippewestenfelder/Documents/Entwicklung/HTWG/HTWG/PT2/uebung/aufgabe4/Kafka_Der_Prozess.txt", StandardCharsets.UTF_8));
 		String line;
 		
 		// Text einlesen und Häfigkeiten aller Wörter bestimmen:

@@ -70,7 +70,7 @@ public class LinkedListFrequencyTable_Test {
         LineNumberReader in;
         in = new LineNumberReader(
                 new FileReader(
-                        "aufgabe1/Kafka_Der_Prozess.txt",
+                        "/Users/philippewestenfelder/Documents/Entwicklung/HTWG/HTWG/PT2/uebung/aufgabe4/Kafka_Der_Prozess.txt",
                         StandardCharsets.UTF_8
                 )
         );
