@@ -8,7 +8,7 @@ public final class RedCard extends Card {
     }
 
     public RedCard() {
-        super(Suit.HEARTS, Rank.SEVEN);
+        super(Suit.randomSuit(), Rank.randomRank());
     }
 
 }

@@ -10,7 +10,7 @@ public class ArrayFrequencyTable<T> extends AbstractFrequencyTable<T> {
 
     private int size = 0;
     //Array fqTable mit Word Objekten
-    private Element[] fqTable;
+    private Element<T>[] fqTable;
     private final int DEFAULT_SIZE = 100;
 
     //Konstruktor
