@@ -6,7 +6,7 @@ public final class BlackCard extends Card {
     }
 
     public BlackCard() {
-        super(Suit.randomSuit(), Rank.randomRank());
+        super(Suit.randomSuit("black"), Rank.randomRank());
     }
 
 }

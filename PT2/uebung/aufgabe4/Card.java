@@ -1,5 +1,6 @@
 package aufgabe4;
 
+import java.util.Objects;
 import java.util.Random;
 
 public abstract class Card {
@@ -17,9 +18,14 @@ public abstract class Card {
         HEARTS, DIAMONDS, SPADES, CLUBS;
         private static final Random PRNG = new Random();
 
-        public static Suit randomSuit()  {
+        public static Suit randomSuit(String color)  {
             Suit[] directions = values();
-            return directions[PRNG.nextInt(directions.length)];
+            if (Objects.equals(color, "black")) {
+                return directions[PRNG.nextInt(2,4)];
+            } else {
+                return directions[PRNG.nextInt(0,2)];
+            }
+
         }
     }
 
