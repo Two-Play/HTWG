@@ -1,5 +1,6 @@
 
 **/.DS_Store
-
+**/.idea
 PT2/out/
-PT2/.idea
+
+**/out/
