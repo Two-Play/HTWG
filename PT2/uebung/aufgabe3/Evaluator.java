@@ -76,16 +76,16 @@ public class Evaluator {
 
 
             // Ihr Code:
-        } else if (isOp(stack[top]) && (token == KL_AUF) || isVal(token)){  // Regel 2 der Parser-Tabelle
+        } else if (top >= 1 && isOp(stack[top]) && (token == KL_AUF) || isVal(token)){  // Regel 2 der Parser-Tabelle
             doShift();
             return true;
         } else if (stack[top] == KL_AUF && (token == KL_AUF) || isVal(token)) { // Regel 3 der Parser-Tabelle
             doShift();
             return true;
-        } else if ( isVal(stack[top]) && stack[top-1] == DOLLAR && isOp(token)) { // Regel 6 der Parser-Tabelle
+        } else if (top >= 1 && stack[top-1] == DOLLAR && isVal(stack[top]) && isOp(token)) { // Regel 6 der Parser-Tabelle
             doShift();
             return true;
-        } else if (isVal(stack[top]) && stack[top-1] == KL_AUF && (token == KL_ZU || isOp(token))) { // Regel 7 der Parser-Tabelle
+        } else if (top >= 1 && isVal(stack[top]) && stack[top-1] == KL_AUF && (token == KL_ZU || isOp(token))) { // Regel 7 der Parser-Tabelle
             doShift();
             return true;
         } /*else if ((isVal(stack[top-2]) && isVal(stack[top-1]) && isVal(stack[top])) && (vergleichOrder(stack[top - 1], token) < 0)) { // Regel 9 der Parser-Tabelle
@@ -128,19 +128,22 @@ public class Evaluator {
 
     private static boolean reduce() {
         // Ihr Code:
-        if (stack[top] == KL_ZU
+        if (top >= 2
+                && stack[top] == KL_ZU
                 && stack[top - 2] == KL_AUF
                 && isVal(stack[top - 1])
                 && (token == KL_ZU || isOp(token) || token == DOLLAR)) { // Regel 4 der Parser-Tabelle
             doReduceKlValKl();
             return true;
-        } else if (isVal(stack[top])
+        } else if (top >= 3
+                && isVal(stack[top])
                 && isOp(stack[top - 1])
                 && isVal(stack[top - 2])
                 && (token == KL_ZU || token == DOLLAR)) { // Regel 8 der Parser-Tabelle
             doReduceValOpVal();
             return true;
-        } else if (isVal(stack[top])
+        } else if (top >= 2
+                &&isVal(stack[top])
                 && isOp(stack[top - 1])
                 && isVal(stack[top - 2])
                 && isOp(token)

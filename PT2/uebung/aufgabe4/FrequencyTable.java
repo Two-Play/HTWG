@@ -5,7 +5,7 @@ package aufgabe4;
  * @author oliverbittel
  * @since 31.07.2023
  */
-public interface FrequencyTable<T> {
+public interface FrequencyTable<T> extends Iterable<Element<T>>{
 	/**
 	 * Liefert die Anzahl der W&ouml;rter in dieser Tabelle zur&uuml;ck.
 	 * @return Anzahl der H&auml;ufigkeitseintr&auml;ge.
@@ -46,7 +46,7 @@ public interface FrequencyTable<T> {
 	 * fq bleibt unver&auml;ndert.
 	 * @param fq H&auml;ufigkeitstabelle.
 	 */
-	void addAll(FrequencyTable fq);
+	void addAll(FrequencyTable<? extends T> fq);
 
 	/**
 	 * Liefert das Wort mit seiner Häufigkeit zur&uuml;ck, das mit seiner H&auml;ufigkeit an Position pos steht.
@@ -56,7 +56,7 @@ public interface FrequencyTable<T> {
 	 * @return Wort mit H&auml;ufigkeit oder null, 
 	 * falls die Tabelle weniger als pos-1 Elemente  enth&auml;lt.  
 	 */
-	Element get(int pos);
+	Element<T> get(int pos);
 
 	/**
 	 * Liefert die H&auml;ufigkeit des Worts w zur&uuml;ck.
@@ -76,5 +76,5 @@ public interface FrequencyTable<T> {
 	 * @param n Anzahl W&ouml;rter, die gespechert werden sollen
 	 * @param fq H&auml;ufigkeitstabelle.
 	 */
-	void collectNMostFrequent(int n, FrequencyTable fq);
+	void collectNMostFrequent(int n, FrequencyTable<? super T> fq);
 }

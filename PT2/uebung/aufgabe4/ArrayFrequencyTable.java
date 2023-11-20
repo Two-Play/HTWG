@@ -1,6 +1,7 @@
 package aufgabe4;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  *
@@ -47,7 +48,7 @@ public class ArrayFrequencyTable<T> extends AbstractFrequencyTable<T> {
         }
         //Wenn word nicht vorhanden, neues erstellen
         if (get(w) == 0) {
-            fqTable[size] = new Element(w, f);
+            fqTable[size] = new Element<T>(w, f);
             size ++;
         } else {
             for (int i = 0; i < size; i++) {
@@ -62,7 +63,7 @@ public class ArrayFrequencyTable<T> extends AbstractFrequencyTable<T> {
     }
 
     private void moveToLeft(int pos) {
-        Element w = fqTable[pos];
+        Element<T> w = fqTable[pos];
         int i = pos-1;
         while (i >= 0 && fqTable[i].getFrequency() < w.getFrequency()) {
             fqTable[i+1] = fqTable[i];
@@ -72,7 +73,7 @@ public class ArrayFrequencyTable<T> extends AbstractFrequencyTable<T> {
     }
 
     @Override
-    public Element get(int pos) {
+    public Element<T> get(int pos) {
         // Ihr Code:
         if (pos < 0 || pos >= size) {
             return null;
@@ -93,5 +94,22 @@ public class ArrayFrequencyTable<T> extends AbstractFrequencyTable<T> {
             }
         }
         return 0;
+    }
+
+
+    @Override
+    public Iterator<Element<T>> iterator() {
+        return new Iterator<>(){
+            int pos = 0;
+            @Override
+            public boolean hasNext() {
+                return pos < size;
+            }
+
+            @Override
+            public Element<T> next() {
+                return fqTable[pos++];
+            }
+        };
     }
 }

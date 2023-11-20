@@ -1,13 +1,38 @@
 package aufgabe4;
 
+import java.util.Iterator;
+
 public class LinkedListFrequencyTable<T> extends AbstractFrequencyTable<T> {
 
+    /**
+     * Returns an iterator over elements of type {@code T}.
+     *
+     * @return an Iterator.
+     */
+    @Override
+    public Iterator<Element<T>> iterator() {
+        return new Iterator<>(){
+            Node p = begin;
+            @Override
+            public boolean hasNext() {
+                return p.next != end;
+            }
+
+            @Override
+            public Element<T> next() {
+                p = p.next;
+                return p.data;
+            }
+        };
+    }
+
+
     //Node Klasse
-    private final static class Node {
+    private final class Node {
         private Node next;
         private Node prev;
-        private Element data;
-        public Node(Element x, Node n, Node p) {
+        private Element<T> data;
+        public Node(Element<T> x, Node n, Node p) {
             data = x;
             next = n;
             prev = p;
@@ -69,7 +94,7 @@ public class LinkedListFrequencyTable<T> extends AbstractFrequencyTable<T> {
             //node = node.next;
         }
 
-        Node newNode = new Node(new Element(w, f), end, end.prev);
+        Node newNode = new Node(new Element<T>(w, f), end, end.prev);
 
         end.prev.next = newNode;
         end.prev = newNode;
@@ -90,7 +115,7 @@ public class LinkedListFrequencyTable<T> extends AbstractFrequencyTable<T> {
      * falls die Tabelle weniger als pos-1 Elemente  enth&auml;lt.
      */
     @Override
-    public Element get(int pos) {
+    public Element<T> get(int pos) {
         //prüft parameter
         if (pos < 0 || pos >= size) {
             throw new IllegalArgumentException("Out of range");
@@ -132,7 +157,7 @@ public class LinkedListFrequencyTable<T> extends AbstractFrequencyTable<T> {
 
 
     private void moveToLeft(Node node) {
-        Element t = node.data;
+        Element<T> t = node.data;
 
         while (node.prev != begin && t.getFrequency() > node.prev.data.getFrequency()) {
 
