@@ -1,1 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/gcc -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/aufgabe1.dir/aufgabe1.c.o CMakeFiles/aufgabe1.dir/a2/bubblesort.c.o -o aufgabe1 

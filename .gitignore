@@ -4,3 +4,4 @@
 PT2/out/
 Sysprog/c/cmake-build-debug/
 **/out/
+**/cmake-build-debug/
