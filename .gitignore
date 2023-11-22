@@ -2,6 +2,7 @@ cmake-build-debug/
 **/.DS_Store
 **/.idea
 PT2/out/
-Sysprog/c/cmake-build-debug/*
+Sysprog/c/cmake-build-debug/
 **/out/
 **/cmake-build-debug/
+**/**/cmake-build-debug/
