@@ -18,37 +18,45 @@ public abstract class AbstractFrequencyTable<T> implements FrequencyTable<T> {
     }
 
 	@Override
-	public void addAll(FrequencyTable fq) {
-		// Ihr Code:
-		for (int i = 0; i < fq.size(); i++) {
-			add((T) fq.get(i).getElement(), fq.get(i).getFrequency());
+	public void addAll(FrequencyTable<? extends T> fq) {
+		for (Element<? extends T> el : fq) {
+			add(el.getElement(), el.getFrequency());
 		}
 	}
 
 	@Override
-	public void collectNMostFrequent(int n, FrequencyTable fq) {
-		// Ihr Code:
+	public void collectNMostFrequent(int n, FrequencyTable<? super T> fq) {
 		fq.clear();
 
 		if (this.size() <= n) {
 			fq.addAll(this);
+
 			return;
 		}
 
-		for (int i = 0; i < n; i++) {
-			fq.add(get(i).getElement(), get(i).getFrequency());
+		int i = 0;
+
+		for (var e : this) {
+			fq.add(e.getElement(), e.getFrequency());
+			i++;
+			if (i == n) {
+				break;
+			}
 		}
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder s = new StringBuilder("{");
-		// Ihr Code:
-		for (int i = 0; i < size(); i++) {
-			s.append(get(i).getElement()).append(":").append(get(i)
-					.getFrequency()).append(", ");
+
+		for (Element<T> el : this) {
+			s.append(el);
+			s.append(", ");
 		}
-		s.append("} size = ").append(size());
+
+		s.append("} size = ");
+		s.append(this.size());
+
 		return s.toString();
 	}
 }

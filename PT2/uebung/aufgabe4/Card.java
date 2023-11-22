@@ -1,5 +1,8 @@
 package aufgabe4;
 
+import java.util.Objects;
+import java.util.Random;
+
 public abstract class Card {
 
     protected final Suit suit;
@@ -12,12 +15,31 @@ public abstract class Card {
 
 
     public enum Suit {
-        HEARTS, DIAMONDS, SPADES, CLUBS
+        HEARTS, DIAMONDS, SPADES, CLUBS;
+        private static final Random PRNG = new Random();
+
+        public static Suit randomSuit(String color)  {
+            Suit[] directions = values();
+            if (Objects.equals(color, "black")) {
+                return directions[PRNG.nextInt(2,4)];
+            } else {
+                return directions[PRNG.nextInt(0,2)];
+            }
+
+        }
     }
 
     public enum Rank {
-        SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE
+        SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE;
+
+        private static final Random PRNG = new Random();
+
+        public static Rank randomRank()  {
+            Rank[] directions = values();
+            return directions[PRNG.nextInt(directions.length)];
+        }
     }
+
 
     public String toString() {
         String color = "";
