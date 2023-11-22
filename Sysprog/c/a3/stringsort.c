@@ -10,7 +10,7 @@
 void bubblesort(char** a, int n);
 
 
-int main(int argc, char *argv[])
+int main(int argc, const char *argv[])
 {
     if (argc != 2)
     {
@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    int n = atoi(argv[1]);
+    const int n = atoi(argv[1]);
 
     if (n < 1) {
         fprintf(stderr, "%s", "Anzahl muss midestens 1 sein");
@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     }
 
     //Zufallgenerator
-    srand((unsigned int) time(NULL));
+    srand(( int) time(NULL));
 
     char **a = (char **) malloc(n * sizeof(char*));
     if (a == NULL)
@@ -36,25 +36,27 @@ int main(int argc, char *argv[])
     }
 
     // length of argv[1] + '\0'
-    int m = sizeof(argv[1]) + 1;
+    const int m = sizeof(argv[1]) + 1;
 
     printf("Unsortiertes Array:\n");
 
     // Strings würfeln
     for (int i = 0; i < n; ++i) {
+
         char* tmp = (char*) malloc(m * sizeof(char));
-
-        int r = rand() % n;
-
         if (tmp == NULL)
         {
             fprintf(stderr, "%s", "Speicher-Fehler");
             return 1;
         }
 
-        sprintf(tmp, "%d", r);
+        //unsgned wegen overflow error
+        const unsigned int r = rand() % n;
+
+        sprintf(tmp, "%u", r);
         a[i] = tmp;
         printf("%s ", a[i]);
+
     }
 
     printf("\n");
@@ -62,25 +64,39 @@ int main(int argc, char *argv[])
     // Strings sortieren
     bubblesort(a, n);
 
-    // Strings ausgeben
     printf("Sortiertes Array:\n");
-    printf("%s", a[0]);
+    //printf("%s", a[0]);
+    //String append
+    char* stringbuilder = (char*) malloc((n +1) * sizeof(char*));
+    if (stringbuilder == NULL)
+    {
+        fprintf(stderr, "%s", "Speicher-Fehler");
+        return 1;
+    }
+    //stringbuilder[0] = (char) a[0];
+    sprintf(stringbuilder, "%s", a[0]);
+    //strcat(stringbuilder, a[0]);
     for (int i = 1; i < n; ++i) {
         if (strncmp(a[i], a[i - 1], strlen(a[i])) == 0)
         {
-            printf("*");
+            //printf("*");
+            strcat(stringbuilder, "*");
         } else
         {
-            printf(" %s", a[i]);
+            //printf(" %s", a[i]);
+            strcat(stringbuilder, " ");
+            strcat(stringbuilder, a[i]);
         }
     }
 
-    printf("\n");
+    // String ausgeben
+    printf("%s\n", stringbuilder);
 
     for (int i = 0; i < n; ++i) {
         free(a[i]);
     }
 
+    free(stringbuilder);
     free(a);
 
 }
