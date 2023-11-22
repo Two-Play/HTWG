@@ -1,4 +1,4 @@
-# willkürliche Prozedur G (überschreibt alle "ungesicherten" Register mit dem Wert $a0+200, liefert auch $a0+200 zurück)
+# willkï¿½rliche Prozedur G (ï¿½berschreibt alle "ungesicherten" Register mit dem Wert $a0+200, liefert auch $a0+200 zurï¿½ck)
 G:	addi $a0,$a0,100
 	addi $a1,$a0,100
 	addi $a2,$a0,100
@@ -16,4 +16,5 @@ G:	addi $a0,$a0,100
 	addi $v0,$a0,100
 	addi $v1,$a0,100
 	jr $ra
+
 
