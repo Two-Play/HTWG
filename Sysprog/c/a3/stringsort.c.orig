@@ -9,6 +9,7 @@
 //macht dadurch die Funktion bekannt
 void bubblesort(char** a, int n);
 
+
 int main(int argc, const char *argv[])
 {
     if (argc != 2)
@@ -66,7 +67,7 @@ int main(int argc, const char *argv[])
     printf("Sortiertes Array:\n");
     //printf("%s", a[0]);
     //String append
-    char* stringbuilder = (char*) malloc((n + 1) * sizeof(char*));
+    char* stringbuilder = (char*) malloc((n +1) * sizeof(char*));
     if (stringbuilder == NULL)
     {
         fprintf(stderr, "%s", "Speicher-Fehler");
@@ -99,6 +100,7 @@ int main(int argc, const char *argv[])
     free(a);
 
 }
+
 
 void bubblesort(char** a, int n)
 {
