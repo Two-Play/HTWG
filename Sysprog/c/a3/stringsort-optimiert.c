@@ -2,7 +2,6 @@
 // Created by philippe on 16.11.23.
 //
 #include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
 #include <string.h>
 #include <stdlib.h>
@@ -10,11 +9,11 @@
 
 
 // Bubblesort-Funktion, die denselben Funktionsprototyp wie qsort verwendet
-int bubblesort(void *base, size_t num, size_t width, int (*compar)(const void *, const void *)) {
+void bubblesort(void *base, size_t num, size_t width, int (*compar)(const void *, const void *)) {
     char* tmp = malloc(width);
     if (tmp == NULL) {
         printf("Fehler bei malloc (tmp)\n");
-        return 1;
+        exit(1);
     }
 
     for (int i = num; i > 1; --i) {
@@ -30,8 +29,6 @@ int bubblesort(void *base, size_t num, size_t width, int (*compar)(const void *,
     }
 
     free(tmp);
-
-    return 0;
 }
 
 
@@ -55,7 +52,7 @@ int main(int argc, const char *argv[])
     srand(( int) time(NULL));
 
     // length of argv[1] + '\0'
-    const int m = sizeof(argv[1]) + 1;
+    const int m = strlen(argv[1]) + 1 ;
 
     char *a = malloc(n * m);
     if (a == NULL)

@@ -7,7 +7,7 @@
 #include <string.h>
 
 //macht dadurch die Funktion bekannt
-void bubblesort(char** a, int n);
+void bubblesort(const char** a, int n);
 
 int main(int argc, const char *argv[])
 {
@@ -27,6 +27,7 @@ int main(int argc, const char *argv[])
     //Zufallgenerator
     srand(( int) time(NULL));
 
+    //** = String Array
     char **a = (char **) malloc(n * sizeof(char*));
     if (a == NULL)
     {
@@ -35,13 +36,14 @@ int main(int argc, const char *argv[])
     }
 
     // length of argv[1] + '\0'
-    const int m = sizeof(argv[1]) + 1;
+    const size_t m = strlen(argv[1]) + 1;
 
     printf("Unsortiertes Array:\n");
 
     // Strings würfeln
     for (int i = 0; i < n; ++i) {
 
+        //String
         char* tmp = (char*) malloc(m * sizeof(char));
         if (tmp == NULL)
         {
@@ -61,12 +63,12 @@ int main(int argc, const char *argv[])
     printf("\n");
 
     // Strings sortieren
-    bubblesort(a, n);
+    bubblesort((const char **) a, n);
 
     printf("Sortiertes Array:\n");
     //printf("%s", a[0]);
     //String append
-    char* stringbuilder = (char*) malloc((n + 1) * sizeof(char*));
+    char* stringbuilder = (char*) malloc(n * m);
     if (stringbuilder == NULL)
     {
         fprintf(stderr, "%s", "Speicher-Fehler");
@@ -100,13 +102,13 @@ int main(int argc, const char *argv[])
 
 }
 
-void bubblesort(char** a, int n)
+void bubblesort(const char** a, int n)
 {
     for (int i = n; i > 1 ; --i) {
         for (int j = 0; j < i - 1; ++j) {
             if (strncmp(a[j], a[j + 1], strlen(a[j])) > 0)
             {
-                char* tmp = a[j + 1];
+                const char* tmp = a[j + 1];
                 a[j + 1] = a[j];
                 a[j] = tmp;
             }
