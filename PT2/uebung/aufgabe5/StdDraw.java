@@ -1,3 +1,4 @@
+package aufgabe5;
 /*************************************************************************
  *  Compilation:  javac StdDraw.java
  *  Execution:    java StdDraw
