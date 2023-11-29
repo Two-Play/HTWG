@@ -16,12 +16,14 @@ public final class Main {
 
 
     public static void main(String[] args) {
+        // Beschleuniger
+        StdDraw.show(0);
 
         StdDraw.setPenRadius(0.003);
         StdDraw.clear();
-        StdDraw.setCanvasSize(1000,1000);
+        StdDraw.setCanvasSize(700,700);
 
-        pyTree1(0.6, 0.05, 0, 0.1);
+        pyTree1(0.6, 0.15, 0, 0.1);
         //pyTree2(0.5, 0.05, 0, 0.05);
 
         //Show img
