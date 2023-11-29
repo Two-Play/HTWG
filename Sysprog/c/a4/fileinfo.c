@@ -3,3 +3,17 @@
 //
 #include "fileinfo.h"
 
+void fileinfo_print(fileinfo* fileinfo)
+{
+
+}
+
+void fileinfo_destroy(fileinfo* head)
+{
+
+}
+
+fileinfo * fileinfo_create(char* arg)
+{
+
+}

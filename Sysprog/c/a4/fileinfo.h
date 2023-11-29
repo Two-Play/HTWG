@@ -15,9 +15,24 @@
 
 typedef struct fileinfo fileinfo;
 
-fileinfo(char ** fileinfo_create);
-enum fileinfo {
+//fileinfo(char ** fileinfo_create);
+enum type {
     filetype_directory,
+};
+
+struct fileinfo
+{
+    fileinfo *next;
+    union {
+
+        fileinfo * type
+    };
+
 
 };
+
+void fileinfo_print(fileinfo* fileinfo);
+void fileinfo_destroy(fileinfo* head);
+fileinfo * fileinfo_create(char* arg);
+
 #endif //AUFGABE1_FILEINFO_H
