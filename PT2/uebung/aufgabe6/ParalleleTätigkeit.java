@@ -12,6 +12,15 @@ public class ParalleleTätigkeit extends ZusammengesetzteTätigkeit{
     }
 
     public double getTime() {
-        return 0;
+        double time = 0;
+
+        for (Tätigkeit t : meineTätigkeit) {
+
+            if (t.getTime() > time) {
+                time = t.getTime();
+            }
+        }
+
+        return time;
     }
 }

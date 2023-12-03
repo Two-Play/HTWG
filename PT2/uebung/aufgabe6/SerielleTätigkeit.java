@@ -13,6 +13,12 @@ public class SerielleTätigkeit extends ZusammengesetzteTätigkeit {
     }
 
     public double getTime() {
-        return 0;
+        double time = 0;
+
+        for (Tätigkeit t : meineTätigkeit) {
+             time += t.getTime();
+        }
+
+        return time;
     }
 }

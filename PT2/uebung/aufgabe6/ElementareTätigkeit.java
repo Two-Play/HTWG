@@ -25,7 +25,12 @@ public class ElementareTätigkeit implements Tätigkeit {
 
 
     public int getAnzahl() {
-        return 0;
+        return 1;
     }
 
+
+    @Override
+    public String toString() {
+        return beschr + " ( " + time + " ) min\n";
+    }
 }
