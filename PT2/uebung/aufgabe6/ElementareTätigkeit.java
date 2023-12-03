@@ -1,23 +1,31 @@
 package aufgabe6;
 
-public class ElementareTätigkeit {
+public class ElementareTätigkeit implements Tätigkeit {
     private double time;
     private String beschr;
 
+    public ElementareTätigkeit(String beschr, double time) {
+        this.time = time;
+        this.beschr = beschr;
+    }
+
     public double getTime() {
+        return time;
+    }
+
+    @Override
+    public void add(Tätigkeit tätigkeit) {
 
     }
 
-    public void add() {
+    @Override
+    public void remove(Tätigkeit tätigkeit) {
 
     }
 
-    public void remove() {
-
-    }
 
     public int getAnzahl() {
-
+        return 0;
     }
 
 }
