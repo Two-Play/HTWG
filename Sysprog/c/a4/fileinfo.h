@@ -16,16 +16,16 @@
 typedef struct fileinfo fileinfo;
 
 //fileinfo(char ** fileinfo_create);
-enum type {
+enum filetype {
     filetype_directory,
 };
 
 struct fileinfo
 {
     fileinfo *next;
+    enum filetype type;
     union {
-
-        fileinfo * type
+        fileinfo * firstElmInDir;
     };
 
 
