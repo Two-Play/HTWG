@@ -23,8 +23,8 @@ public final class Main {
         StdDraw.clear();
         StdDraw.setCanvasSize(700,700);
 
-        pyTree1(0.6, 0.15, 0, 0.1);
-        //pyTree2(0.5, 0.05, 0, 0.05);
+        //pyTree1(0.6, 0.15, 0, 0.1);
+        pyTree2(0.5, 0.05, 0, 0.07);
 
         //Show img
         StdDraw.show(0);
@@ -34,7 +34,8 @@ public final class Main {
     private static void pyTree1(double x, double y, double gamma, double w) {
 
         // Konstanten relativen Neigungswinkel
-        final double DELTA = 0.4;
+        //final double DELTA = 0.4;
+        final double DELTA = Math.toRadians(30);
 
         // Setze Stift Farbe
         if (w < GREENPOINT) {
@@ -73,7 +74,7 @@ public final class Main {
             // großes Rechteck
             pyTree1(xD, yD, gamma + DELTA, u);
             // kleines Rechteck
-            pyTree1(xE, yE, gamma + DELTA - 1.5, v);
+            pyTree1(xE, yE, gamma + DELTA - Math.toRadians(90), v);
         }
     }
 
@@ -125,7 +126,7 @@ public final class Main {
         if (w > EPSILON) {
             // großes Rechteck
             pyTree2(xD, yD, gamma + DELTA, u);
-            // kleines Rechteck
+            // kleines Rechteck // 1.5 = PI/2
             pyTree2(xE, yE, gamma + DELTA - 1.5, v);
         }
     }
