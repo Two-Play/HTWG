@@ -1,12 +1,13 @@
 package aufgabe6.bibliothek;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Person {
 
     private String name;
-    private List<Buch> ausgelieheneBuecher = new ArrayList<>();
+    private List<Buch> ausgelieheneBuecher = new LinkedList<Buch>();
 
     public Person(String name) {
         this.name = name;
@@ -36,9 +37,9 @@ public class Person {
             return false;
         }
 
-        ausgelieheneBuecher.add(b);
         b.wirdAusgeliehen(this);
-        return true;
+        return ausgelieheneBuecher.add(b);
+
     }
 
     public boolean gibtZurueck(Buch b) {
@@ -71,7 +72,7 @@ public class Person {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Person: ").append(getName()).append("; Bücher: ");
         for (Buch b : ausgelieheneBuecher) {
-            stringBuilder.append(b.getName()).append(",");
+            stringBuilder.append(b.getName()).append(", ");
         }
 
         System.out.println(stringBuilder);

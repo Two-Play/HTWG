@@ -2,7 +2,7 @@ package aufgabe6.bibliothek;
 
 public class Buch {
 
-    private String name;
+    private final String name;
     private Person entleiher;
 
     public Buch(String name) {
@@ -41,12 +41,11 @@ public class Buch {
 
         Person p = entleiher;
         entleiher = null;
-        p.gibtZurueck(this);
-        return true;
+        return p.gibtZurueck(this);
     }
 
     public void print() {
-        //System.out.printf("Buchname: %s ; Entleiher: %s%n", getName(), getEntleiher().getName());
+        System.out.printf("Buchname: %s; Entleiher: %s%n", getName(), getEntleiher() != null ? getEntleiher().getName() : "Keiner");
     }
 
 }
