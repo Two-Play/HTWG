@@ -29,7 +29,8 @@ public class Buch {
         }
 
         entleiher = p;
-        return p.leihtAus(this);
+        p.leihtAus(this);
+        return true;
 
     }
 
@@ -41,7 +42,9 @@ public class Buch {
 
         Person p = entleiher;
         entleiher = null;
-        return p.gibtZurueck(this);
+        //return p.gibtZurueck(this);
+        p.gibtZurueck(this);
+        return true;
     }
 
     public void print() {
