@@ -6,3 +6,5 @@ Sysprog/c/cmake-build-debug/
 **/out/
 **/cmake-build-debug/
 **/**/cmake-build-debug/
+
+*.o
