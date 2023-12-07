@@ -20,13 +20,6 @@ public class Person {
     public boolean leihtAus(Buch b) {
         // Seite: 15-17
 
-        /*if (b.getEntleiher() == null) {
-            b.getEntleiher()
-            return ausgelieheneBuecher.add(b);
-        } else {
-            return false;
-        }*/
-
         // Buch schon ausgeliehen
         if (ausgelieheneBuecher.contains(b)) {
             return false;
@@ -37,35 +30,23 @@ public class Person {
             return false;
         }
 
+        ausgelieheneBuecher.add(b);
         b.wirdAusgeliehen(this);
-        return ausgelieheneBuecher.add(b);
+        return true;
+        //return ausgelieheneBuecher.add(b);
 
     }
 
     public boolean gibtZurueck(Buch b) {
-
-        /*if (ausgelieheneBuecher.contains(b)) {
-            ausgelieheneBuecher.remove(b);
-            return true;
-        } else {
-            return false;
-        }*/
-
-       /* if (!ausgelieheneBuecher.contains(b)) {
-            return false;
-        }
-
-        b.wirdZurueckGegeben();
-        return ausgelieheneBuecher.remove(b);
-
-        */
 
         if (!ausgelieheneBuecher.contains(b)) {
             return false;
         }
 
         b.wirdZurueckGegeben();
-        return ausgelieheneBuecher.remove(b);
+        ausgelieheneBuecher.remove(b);
+        return true;
+        //return ausgelieheneBuecher.remove(b);
     }
 
     public void print() {
