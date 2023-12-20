@@ -29,7 +29,6 @@ static fileinfo* list_directory(char* dirname)
     // Zeiger auf Variable für Verzeichniseintrag
     struct dirent *entry;
 
-    // Zeiger für Verzeichniseintragsliste
     fileinfo *head = NULL;
     fileinfo *current = NULL;
 
@@ -92,7 +91,6 @@ static void print_directory(const char *path, const char *dirname, const fileinf
         return;
     }
 
-    // Wenn path nicht leer dann neuen Ordner mit "/" anhängen, sonst nur Ordner anhängen
     if (strcmp(path, "") != 0)
     {
         sprintf(new_path, "%s/%s", path, dirname);
@@ -145,20 +143,7 @@ static void print_directory(const char *path, const char *dirname, const fileinf
 
 void fileinfo_print(const fileinfo* fileinfo)
 {
-/*
-    switch (fileinfo->type)
-    {
-        case filetype_regular:
-            print_regular(fileinfo->filename, fileinfo->size);
-            break;
-        case filetype_directory:
-            print_directory("", fileinfo->filename, fileinfo->list);
-            break;
-        case filetype_other:
-            print_other(fileinfo->filename);
-            break;
-    }
-*/
+
     if (fileinfo->type == filetype_regular)
     {
         print_regular(fileinfo->filename, fileinfo->size);
