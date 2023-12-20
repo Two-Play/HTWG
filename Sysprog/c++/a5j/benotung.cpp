@@ -3,7 +3,7 @@
  *
  * Wertklasse zur Repräsentation einer Note.
  *
- * Autor: J.Middelberg
+ * Autor: Philippe Westenfelder
  * Version: 09.12.23
  */
 

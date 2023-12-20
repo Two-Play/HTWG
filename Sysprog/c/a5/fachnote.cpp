@@ -3,7 +3,7 @@
  *
  * Entität zur Repräsentation einer Fachnote.
  *
- * Autor: J.Middelberg
+ * Autor: Philippe Westenfelder
  * Version: 09.12.23
  */
 
