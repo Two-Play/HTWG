@@ -3,8 +3,11 @@ package workshop.Workshop1_2023_Collections.src;
 import java.util.Arrays;
 import java.util.List;
 
+// äußerer Konstruktor
 public record Movie(String title, List<String> actors, int year) {
+    // innerer Konstruktor
     public Movie(String s) {
+        // Ruft den oberen Konstruktor auf
         this(parseTitle(s),parseActors(s),parseYear(s));
     }
 

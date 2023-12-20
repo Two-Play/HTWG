@@ -6,6 +6,12 @@ import java.util.*;
 
 public class Aufgabe2_Datenanalyse {
 
+
+    private static void printLK(List<Landkreis> kreiseBRD) {
+        for (Landkreis k : kreiseBRD)
+            System.out.println(k.name() + ", " +  k.anzahlEinwohner());
+    }
+
     public static void loesung() throws IOException {
 
         // a) (2P)
@@ -16,21 +22,28 @@ public class Aufgabe2_Datenanalyse {
         // Geben Sie die Liste (jeder Landkreis in eine Zeile) aus und bestimmen Sie die Anzahl der Landkreise.
         System.out.println("\nAufgabe 2a (2P):");
         // Ihr Code
-        // ...
+        List<Landkreis> kreiseBRD = einlesen("uebung/workshop/Workshop1_2023_Collections/data/12411-0017-KREISE_$F.csv");
+        printLK(kreiseBRD);
+
+        System.out.println("Anzahl der Landkreise: " + kreiseBRD.size());
+
 
 
         // b) (2P)
         // Sortieren Sie die Liste nach dem Namen und geben Sie die Liste (jeder Landkreis in eine Zeile) aus:
         System.out.println("\nAufgabe 2b (2P):");
         // Ihr Code
-        // ...
-
+        //kreiseBRD = kreiseBRD.stream().sorted(Comparator.comparing(Landkreis::name)).toList();
+        kreiseBRD.sort(Comparator.comparing(Landkreis::name));
+        printLK(kreiseBRD);
 
         // c) (2P)
         // Sortieren Sie die Liste absteigend nach der Einwohnerzahl und geben Sie die Liste (jeder Landkreis in eine Zeile) aus:
         System.out.println("\nAufgabe 2c (2P):");
         // Ihr Code
-        // ...
+        //kreiseBRD = kreiseBRD.stream().sorted(Comparator.comparing(Landkreis::name).reversed()).toList();
+        kreiseBRD.sort(Comparator.comparing(Landkreis::anzahlEinwohner).reversed());
+        printLK(kreiseBRD);
 
 
         // d) (3P)
@@ -39,13 +52,18 @@ public class Aufgabe2_Datenanalyse {
         // Benutzen Sie dazu subMap!
         System.out.println("\nAufgabe 2d (3P):");
         // Ihr Code
-        // ...
+        NavigableMap<String, Integer> kreiseMap = new TreeMap<>();
+        for (Landkreis k : kreiseBRD)
+            kreiseMap.put(k.name(), k.anzahlEinwohner());
+        System.out.println(kreiseMap.subMap("K", true, "L", false));
+
 
         // e) (1P)
         // Geben Sie die Menge (Set) aller Landkreisnamen aus:
         System.out.println("\nAufgabe 2e (1P):");
         // Ihr Code
-        // ...
+        System.out.println(kreiseMap.keySet());
+
     }
 
     private static List<Landkreis> einlesen(String fn) throws IOException {

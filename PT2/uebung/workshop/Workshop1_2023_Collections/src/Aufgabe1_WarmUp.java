@@ -45,10 +45,12 @@ public class Aufgabe1_WarmUp {
         System.out.println(l);
     }
 
-    private static <T> List<T> append(List<T> l1, List<T> l2) {
+    private static <T> List<T> append(List<? extends T> l1, List<? extends T> l2) {
         // Ihr Code:
-        // ...
-        return null;
+        List<T> l = new LinkedList<>();
+        l.addAll(l1);
+        l.addAll(l2);
+        return l;
     }
 
     private static void aufgabe_b() {
@@ -71,8 +73,14 @@ public class Aufgabe1_WarmUp {
 
     private static <T> List<T> removeDuplicates(List<T> l) {
         // Ihr Code:
-        // ...
-        return null;
+        List<T> lNew = new LinkedList<>();
+
+        for (T t : l) {
+            if (!lNew.contains(t)) {
+                lNew.add(t);
+            }
+        }
+        return lNew;
     }
 
     private static void aufgabe_c() {
@@ -96,10 +104,10 @@ public class Aufgabe1_WarmUp {
         objList.add(4);
 
         // Dieser Aufruf sollte gehen:
-        //List<Object> l = append(nbList, objList);
-        //System.out.println(nbList);
-        //System.out.println(objList);
-        //System.out.println(l);
+        List<Object> l = append(nbList, objList);
+        System.out.println(nbList);
+        System.out.println(objList);
+        System.out.println(l);
 
     }
 
@@ -129,8 +137,13 @@ public class Aufgabe1_WarmUp {
 
     private static <T> Set<T> findCommon(Collection<? extends T> a, Collection<? extends T> b) {
         // Ihr Code:
-        // ...
-        return null;
+        Set<T> s = new HashSet<>();
+        for (T t : a) {
+            if (b.contains(t)) {
+                s.add(t);
+            }
+        }
+        return s;
     }
 
 

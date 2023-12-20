@@ -13,7 +13,9 @@ public class Aufgabe4_Movies {
         // Die record-Klasse Movie stellt zwei Konstruktoren zur Verfügung.
         // Testen Sie die beiden Konstruktoren und erklären Sie die Funktionsweise.
         System.out.println("\nAufgabe 4a (1P):");
+        // Äußerer Konstruktor
         Movie movie1 = new Movie("101 Dalmatians", List.of("Benfield, John", "Braid, Hilda", "Capron, Brian"),1996);
+        // interner Konstruktor
         Movie movie2 = new Movie("101 Dalmatians (1996)/Benfield, John/Braid, Hilda/Capron, Brian");
         // Ausgabe von m1 und m2 sollte identisch sein:
         System.out.println(movie1);
@@ -27,8 +29,10 @@ public class Aufgabe4_Movies {
         // Geben Sie alle Filme nach Jahreszahlen sortiert aus.
         // Geben Sie dabei zuerst die Jahreszahl und dann den Filmtitel in einer Zeile aus (Schauspieler werden weggelassen).
         System.out.println("\nAufgabe 4b (2P):");
-        List<Movie> movieList = einlesen("data/movies-top-grossing.txt");
-        // ...
+        List<Movie> movieList = einlesen("uebung/workshop/Workshop1_2023_Collections/data/movies-top-grossing.txt");
+        movieList.sort(Comparator.comparing(Movie::year));
+        for (Movie m : movieList)
+            System.out.println(m.year() + " " + m.title());
 
 
         // c) (5P)
@@ -37,7 +41,15 @@ public class Aufgabe4_Movies {
         // in jeweils eine Zeile ausgeben.
         System.out.println("\nAufgabe 4c (5P):");
         Map<Integer, Set<String>> jahrToTitel = new TreeMap<>();
-        // ...
+        for (Movie m : movieList) {
+            Set<String> titel = jahrToTitel.computeIfAbsent(m.year(), k -> new TreeSet<>());
+            titel.add(m.title());
+        }
+        for (Map.Entry<Integer, Set<String>> e : jahrToTitel.entrySet()) {
+            System.out.println(e.getKey());
+            for (String s : e.getValue())
+                System.out.println("\t" + s);
+        }
 
 
         // d) (5P)
@@ -48,15 +60,36 @@ public class Aufgabe4_Movies {
         // Wieviel unterschiedliche Schaupieler gibt es?
         System.out.println("\nAufgabe 4d (5P):");
         SortedMap<String, Set<String>> actorToTitel = new TreeMap<>();
-        // ...
+        for (Movie m : movieList) {
+            for (String s : m.actors()) {
+                Set<String> titel = actorToTitel.computeIfAbsent(s, k -> new TreeSet<>());
+                titel.add(m.title());
+            }
+        }
+        for (Map.Entry<String, Set<String>> e : actorToTitel.entrySet()) {
+            if (e.getKey().startsWith("B")) {
+                System.out.println(e.getKey());
+                for (String s : e.getValue())
+                    System.out.println("\t" + s);
+            }
+        }
 
 
         // e) (5P)
         // Ermitteln Sie aus der Map von d) die fünf Schauspieler/innen,
         // die in den meisten Filmen mitgewirkt haben.
         System.out.println("\nAufgabe 4e (5P):");
-        // ...
 
+        Comparator<Map.Entry<String, Set<String>>> cmp = Comparator.comparing(e -> e.getValue().size());
+        actorToTitel.entrySet().stream().sorted(cmp.reversed()).limit(5).forEach(e -> System.out.println(e.getKey() + " " + e.getValue().size()));
+
+        /*for (int i = 0; i < 5; i++) {
+            // max holt maximalen Eintrag aus der aus der map größe
+            Map.Entry<String, Set<String>> max = actorToTitel.entrySet().stream().max(Comparator.comparing(e -> e.getValue().size())).get();
+            System.out.println(max.getKey() + " " + max.getValue().size());
+            //damit der nächste max actor kommt
+            actorToTitel.remove(max.getKey());
+        }*/
     }
 
     private static List<Movie> einlesen(String fn) throws IOException {
@@ -64,7 +97,7 @@ public class Aufgabe4_Movies {
         LineNumberReader in = new LineNumberReader(new FileReader(fn, StandardCharsets.UTF_8));
         String line;
         while ((line = in.readLine()) != null) {
-            // ...
+            movieList.add(new Movie(line));
         }
         return movieList;
     }
