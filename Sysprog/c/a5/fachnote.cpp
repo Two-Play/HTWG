@@ -14,7 +14,7 @@
 fachnote::fachnote(const std::string &f, const benotung &n)
 : fach(f), note(n.int_value())
 {
-    if (f.size() == 0)
+    if (f.empty())
     {
         throw std::invalid_argument("unzulaessigr Fachname mit Länge 0");
     }
