@@ -9,6 +9,7 @@
 
 #include "benotung.h"
 #include <stdexcept>
+#include <string>
 
 
 benotung benotung::beste = benotung(10);
