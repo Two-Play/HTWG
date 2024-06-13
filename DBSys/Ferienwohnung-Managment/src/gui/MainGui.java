@@ -4,6 +4,9 @@ import functions.FetchData;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainGui extends JFrame {
     private JPanel MainPanel;
@@ -12,14 +15,14 @@ public class MainGui extends JFrame {
     private JComboBox landDropdown;
     private JTable mainTable;
     private JLabel anreiseLabel;
-    private JTextField textField1;
+    private JTextField textFieldAnreise;
     private JButton button1;
     private JLabel abreiseLabel;
     private JButton button2;
-    private JTextField textField2;
+    private JTextField textFieldAbreise;
     private JButton suchenBtn;
     private JScrollPane scroolPaneList;
-    private JButton button3;
+    private JButton buchenButton;
     private JButton button4;
     private JScrollPane ausstattungScrollPane;
     private JTable table1;
@@ -57,18 +60,35 @@ public class MainGui extends JFrame {
 
         fetchData.getCountries(landDropdown);
 
+        textFieldAnreise.setText("10-07-2024");
+        textFieldAbreise.setText("17-07-2024");
+
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Name");
-        model.addColumn("Vorname");
-        model.addColumn("Anreise");
-        model.addColumn("Abreise");
-        model.addColumn("Personen");
-
+        model.addColumn("Durchschnittliche Bewertung");
+       // model.addColumn("Land");
+        model.addColumn("Preis");
 
         mainTable.setModel(model);
 
-        model.addRow(new Object[]{1, "Mustermann", "Max", "01.01.2020", "10.01.2020", 2});
-           model.addRow(new Object[]{2, "Musterfrau", "Erika", "15.01.2020", "20.01.2020", 1});
+        suchenBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String land = landDropdown.getSelectedItem().toString();
+                String anreise = textFieldAnreise.getText();
+                String abreise = textFieldAbreise.getText();
+
+                if (anreise.isEmpty() || abreise.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Bitte geben Sie ein Anreise- und Abreisedatum ein", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                // get chackboxes from panel
+                Component[] components = ausstattungsPane.getComponents();
+
+                fetchData.ferienwohnungsuche(land, anreise, abreise, model, components);
+            }
+        });
     }
 }

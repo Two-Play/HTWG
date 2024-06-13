@@ -1,6 +1,8 @@
 package functions;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.sql.*;
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +46,8 @@ public class FetchData {
                 // Exit the application
                 System.exit(0);
             }
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println("Connection to database failed");
         }
     }
 
@@ -80,7 +83,8 @@ public class FetchData {
         } catch (SQLException e) {
             // show dialog with error message
             JOptionPane.showMessageDialog(null, "Error while fetching data", "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println("Error while fetching data");
         }
     }
 
@@ -88,6 +92,7 @@ public class FetchData {
         final String sqlStatement = "SELECT name FROM ausstattung ORDER BY name ASC";
 
         try {
+            //TODO: Fix bug if reconecting, stmt is null
             ResultSet rs = stmt.executeQuery(sqlStatement);
 
             while (rs.next()) {
@@ -98,7 +103,68 @@ public class FetchData {
         } catch (SQLException e) {
             // show dialog with error message
             JOptionPane.showMessageDialog(null, "Error while fetching data", "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println("Error while fetching data");
+        }
+    }
+
+    public void ferienwohnungsuche(String land, String anreise, String abreise, DefaultTableModel model, Component[] components) {
+
+        StringBuilder sqlStatement = new StringBuilder("SELECT\n" +
+                "    FERIENWOHNUNG.ferienwohnung_id,\n" +
+                "    FERIENWOHNUNG.name,\n" +
+                "FERIENWOHNUNG.preis,\n" +
+               // "Land.name,\n" +
+                "    AVG(BUCHUNG.sternebewertung) AS durchschnittliche_bewertung\n" +
+                "FROM FERIENWOHNUNG, BESITZT_AUSSTATTUNG, AUSSTATTUNG, BUCHUNG, LAND\n" +
+                "WHERE LAND.name = ?\n");
+                for (Component component : components) {
+                    if (component instanceof JCheckBox) {
+                        JCheckBox checkBox = (JCheckBox) component;
+                        if (checkBox.isSelected()) {
+                            sqlStatement.append("AND AUSSTATTUNG.name = '").append(checkBox.getText()).append("'\n");
+                        }
+                    }
+                }
+                sqlStatement.append("  AND BUCHUNG.buchungsnummer NOT IN (\n" + "    SELECT buchungsnummer\n" + "    FROM BUCHUNG\n" +
+                        "    WHERE TO_DATE(buchungsstartdatum, 'DD-MM-YYYY') < TO_DATE(?, 'DD-MM-YYYY')\n" +
+                        "    AND TO_DATE(buchungsenddatum, 'DD-MM-YYYY') > TO_DATE(?, 'DD-MM-YYYY')\n" + "    )\n" +
+                        "AND FERIENWOHNUNG.ferienwohnung_id = BESITZT_AUSSTATTUNG.ferienwohnung\n" +
+                        "AND BESITZT_AUSSTATTUNG.ausstattung = AUSSTATTUNG.name\n" +
+                        "AND FERIENWOHNUNG.ferienwohnung_id = BUCHUNG.ferienwohnung\n" +
+                        "AND FERIENWOHNUNG.land = LAND.land_id\n" + "GROUP BY\n" +
+                        "    FERIENWOHNUNG.ferienwohnung_id, FERIENWOHNUNG.name, FERIENWOHNUNG.preis"                   );
+
+        System.out.println("SQL: " + sqlStatement.toString());
+
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sqlStatement.toString());
+            pstmt.setString(1, land);
+            pstmt.setString(2, anreise);
+            pstmt.setString(3, abreise);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            conn.commit();
+
+            model.setRowCount(0);
+
+            while (rs.next()) {
+                int id = rs.getInt("ferienwohnung_id");
+                String name = rs.getString("name");
+                String bewertung = rs.getString("durchschnittliche_bewertung");
+                //String landName = rs.getString("land");
+                String preis = rs.getString("preis");
+
+
+                model.addRow(new Object[]{id, name, bewertung, preis});
+            }
+
+        } catch (SQLException e) {
+            // show dialog with error message
+            JOptionPane.showMessageDialog(null, "Error while fetching data", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Error while fetching data:");
+            System.out.println(e.getMessage());
         }
     }
 
