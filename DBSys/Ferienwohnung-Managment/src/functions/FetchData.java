@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -126,16 +127,16 @@ public class FetchData {
                         }
                     }
                 }
-                sqlStatement.append("  AND BUCHUNG.buchungsnummer NOT IN (\n" + "    SELECT buchungsnummer\n" + "    FROM BUCHUNG\n" +
-                        "    WHERE TO_DATE(buchungsstartdatum, 'DD-MM-YYYY') < TO_DATE(?, 'DD-MM-YYYY')\n" +
-                        "    AND TO_DATE(buchungsenddatum, 'DD-MM-YYYY') > TO_DATE(?, 'DD-MM-YYYY')\n" + "    )\n" +
+                sqlStatement.append("  AND FERIENWOHNUNG.ferienwohnung_id NOT IN (\n" + "    SELECT BUCHUNG.ferienwohnung\n" + "    FROM BUCHUNG\n" +
+                        "    WHERE buchungsstartdatum <= TO_DATE(?, 'DD-MM-YYYY')\n" +
+                        "    AND buchungsenddatum >= TO_DATE(?, 'DD-MM-YYYY')\n" + "    )\n" +
                         "AND FERIENWOHNUNG.ferienwohnung_id = BESITZT_AUSSTATTUNG.ferienwohnung\n" +
                         "AND BESITZT_AUSSTATTUNG.ausstattung = AUSSTATTUNG.name\n" +
                         "AND FERIENWOHNUNG.ferienwohnung_id = BUCHUNG.ferienwohnung\n" +
                         "AND FERIENWOHNUNG.land = LAND.land_id\n" + "GROUP BY\n" +
                         "    FERIENWOHNUNG.ferienwohnung_id, FERIENWOHNUNG.name, FERIENWOHNUNG.preis"                   );
 
-        System.out.println("SQL: " + sqlStatement.toString());
+        System.out.println("SQL: " + sqlStatement);
 
         try {
             PreparedStatement pstmt = conn.prepareStatement(sqlStatement.toString());
@@ -166,6 +167,48 @@ public class FetchData {
             System.out.println("Error while fetching data:");
             System.out.println(e.getMessage());
         }
+    }
+
+    public boolean buchung(String kundenNr, String ferienwohunungsID, String anreise, String abreise) {
+        final String sqlStatement = "INSERT INTO Buchung (buchungsenddatum, buchungsstartdatum, buchungsdatum, kunde , rechnunug_abgeschlossen, ferienwohnung) VALUES" +
+        "(TO_DATE(?, 'DD-MM-YYYY'), TO_DATE(?, 'DD-MM-YYYY'), TO_DATE(?, 'YYYY-MM-DD'), ?, 'N', ?)";
+
+       // dialog if shure
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Buchung bestätigen?\n FerienwohnungID " +
+                ferienwohunungsID + " von " + anreise + " bis " + abreise , "Buchung", JOptionPane.YES_NO_OPTION);
+        if (dialogResult == JOptionPane.NO_OPTION) {
+            return false;
+        }
+
+        String curentDate = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+        System.out.println("Current date: " + curentDate);
+
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
+            pstmt.setString(1, abreise);
+            pstmt.setString(2, anreise);
+            pstmt.setString(3, curentDate);
+            pstmt.setString(4, kundenNr);
+            pstmt.setString(5, ferienwohunungsID);
+
+            pstmt.executeUpdate();
+            conn.commit();
+            JOptionPane.showMessageDialog(null, "Buchung erfolgreich", "Buchung", JOptionPane.INFORMATION_MESSAGE);
+
+            return true;
+        } catch (SQLException e) {
+            // show dialog with error message
+            JOptionPane.showMessageDialog(null, "Error while fetching data", "Error", JOptionPane.ERROR_MESSAGE);
+            //e.printStackTrace();
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                System.out.println("Error while rollback: " + ex.getMessage());
+            }
+            System.out.println("Error while inserting data: " + e.getMessage());
+            return false;
+        }
+
     }
 
 }
