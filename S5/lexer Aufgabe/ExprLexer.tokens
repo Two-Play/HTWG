@@ -1,0 +1,14 @@
+Uhrzeit=1
+Bus=2
+Zug=3
+Schiff=4
+Ort=5
+Wochentag=6
+Nicht=7
+Datum=8
+Zeitraum=9
+Täglich=10
+WS=11
+'KAT'=4
+'nicht'=7
+'täglich'=10

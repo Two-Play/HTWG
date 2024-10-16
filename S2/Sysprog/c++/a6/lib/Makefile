@@ -1,0 +1,42 @@
+# Kommando-Variablen
+CXX = g++
+CPPFLAGS = -fPIC -I.
+CXXFLAGS = -Wall -Wextra -Werror -pedantic -std=c++11
+AR = ar
+ARFLAGS = rs
+LIBTYPE = a
+RM = rm -f
+
+# Hilfsvariablen
+LIBNAME = aufgabe6
+TARGET = lib$(LIBNAME)
+OBJECTS = \
+    benotung.o \
+    fachnote.o \
+    fachnoten_liste.o
+SOURCES = $(OBJECTS:.o=.cpp)
+HEADERS = $(OBJECTS:.o=.h)
+
+# Musterregeln
+%.o: %.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
+
+.PHONY: all clean
+
+all: $(TARGET).$(LIBTYPE)
+
+clean:
+	$(RM) $(TARGET).a $(TARGET).so $(OBJECTS) depend
+
+depend: $(SOURCES) $(HEADERS)
+	$(CXX) $(CPPFLAGS) -MM $(SOURCES) > $@
+
+# Ziele
+$(TARGET).a: $(OBJECTS)
+	$(AR) $(ARFLAGS) $@ $^
+
+$(TARGET).so: $(OBJECTS)
+	$(CXX) -shared $^ -o $@
+
+include depend

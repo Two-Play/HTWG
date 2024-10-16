@@ -1,4 +1,0 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Library/Developer/CommandLineTools/usr/bin/make -DCMAKE_C_COMPILER=/Library/Developer/CommandLineTools/usr/bin/gcc -DCMAKE_CXX_COMPILER=/Library/Developer/CommandLineTools/usr/bin/g++ -G "CodeBlocks - Unix Makefiles" -S /Users/philippewestenfelder/Documents/Entwicklung/HTWG/Sysprog/Einstieg -B /Users/philippewestenfelder/Documents/Entwicklung/HTWG/Sysprog/Einstieg/cmake-build-debug
--- Configuring done (0.1s)
--- Generating done (0.0s)
--- Build files have been written to: /Users/philippewestenfelder/Documents/Entwicklung/HTWG/Sysprog/Einstieg/cmake-build-debug
